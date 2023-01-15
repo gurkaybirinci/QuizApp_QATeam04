@@ -13,12 +13,13 @@ public class Kullanici_Girisi {
         int denemeHakki = 3;
 
         Scanner input = new Scanner(System.in);
+        System.out.print("___QuizApp Uygulamasına Hoşgeldiniz___\n\nLütfen bilgilerinizi giriniz.\n");
 
         while (denemeHakki > 0 && !girisBasariliMi) {
             // Kullanıcıdan giriş bilgilerini alalım
-            System.out.print("Kullanıcı Adı: ");
+            System.out.print("\tKullanıcı Adı: ");
             String kullaniciAdi = input.nextLine();
-            System.out.print("Şifre: ");
+            System.out.print("\tŞifre: ");
             String sifre = input.nextLine();
 
             // Veritabanına bağlanma
@@ -26,7 +27,7 @@ public class Kullanici_Girisi {
             try {
                 con = DriverManager.getConnection(url, user, password);
                 // Kullanıcı giriş bilgilerini almak için gerekli SQL sorusunu oluşturduk
-                PreparedStatement st = con.prepareStatement("select * from kullanicilar where kullaniciadi = ? and sifre = ?");
+                PreparedStatement st = con.prepareStatement("SELECT * FROM kullanicilar WHERE kullaniciadi = ? AND sifre = ?");
                 st.setString(1, kullaniciAdi);
                 st.setString(2, sifre);
 
@@ -46,6 +47,9 @@ public class Kullanici_Girisi {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
+        }
+        if (!girisBasariliMi){
+            System.out.println("\nGiriş deneme hakkınız bitti. Lütfen daha sonra tekrar deneyin.");
         }
     }
 }
